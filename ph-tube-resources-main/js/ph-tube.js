@@ -19,26 +19,37 @@ const loadVideos = () => {
         .catch((error) => console.log(error))
 };
 
+
 // Display video function;
 const displayVideos = (videos) => {
 
     const videoContainer = document.getElementById("videos");
     videos.forEach(video => {
-        //console.log(video)
+        console.log(video)
         const card = document.createElement("div");
         card.classList = "card card-compact";
         card.innerHTML = 
         `
-            <figure>
+            <figure class="h-[200px] relative">
                 <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                src= ${video.thumbnail}
+                class="h-full w-full object-cover"
                 alt="Shoes" />
+                <span class="absolute right-2 bottom-2 bg-slate-900 rounded p-1 text-white">${video.others.posted_date}</span>
             </figure>
-            <div class="card-body">
-                <h2 class="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
+            <div class="px-0 py-2 flex gap-2">
+                <div>
+                    <img class="h-10 w-10 rounded-full object-cover" src=${video.authors[0].profile_picture} />
+                </div>
+                <div>
+                    <h2 class="font-bold">${video.title}</h2>
+                    <div class="inline-flex items-center gap-2">
+                        <p class="text-gray-500">${video.authors[0].profile_name}</p>
+                        
+                        ${
+                            video.authors[0].verified === true ? `<img class="h-5" src="https://img.icons8.com/?size=96&id=D9RtvkuOe31p&format=png" />` : ""
+                        }
+                    </div>
                 </div>
             </div>
         `;
