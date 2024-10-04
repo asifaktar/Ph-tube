@@ -19,7 +19,13 @@ const loadVideos = () => {
         .catch((error) => console.log(error))
 };
 
-
+// video upload time function
+function getTimeString(time){
+    //get hour and mint
+    const hour =  parseInt(time / 3600);
+    let minute = parseInt(hour % 3600);
+    return `${hour} hour ${minute} minute ago`;
+};
 // Display video function;
 const displayVideos = (videos) => {
 
@@ -35,7 +41,11 @@ const displayVideos = (videos) => {
                 src= ${video.thumbnail}
                 class="h-full w-full object-cover"
                 alt="Shoes" />
-                <span class="absolute right-2 bottom-2 bg-slate-900 rounded p-1 text-white">${video.others.posted_date}</span>
+                ${
+                    video.others.posted_date?.length == 0 
+                    ? ""
+                    : `<span class="absolute right-2 bottom-2 bg-slate-900 rounded p-1 text-gray-200 text-xs">${getTimeString(video.others.posted_date)}</span>` 
+                }
             </figure>
             <div class="px-0 py-2 flex gap-2">
                 <div>
